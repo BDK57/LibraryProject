@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Library_Management_SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AuthorName" Type="varchar" MaxLength="20" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="30" />
+    <Property Name="AuthorDOB" Type="date" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookTitle" Type="varchar" MaxLength="20" />
+    <Property Name="BookPrice" Type="int" />
+    <Property Name="BookQuantity" Type="nvarchar" MaxLength="30" />
+    <Property Name="AuthorID" Type="int" />
+  </EntityType>
+  <EntityType Name="BookIssue">
+    <Key>
+      <PropertyRef Name="BookIssueID" />
+    </Key>
+    <Property Name="BookIssueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="StudentID" Type="int" />
+    <Property Name="FacultyID" Type="int" />
+    <Property Name="BookAvailable" Type="int" />
+    <Property Name="Fine" Type="money" />
+    <Property Name="ReturnDate" Type="date" />
+    <Property Name="IssueDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentName" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Faculty">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+    </Key>
+    <Property Name="FacultyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacultyName" Type="varchar" MaxLength="20" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="30" />
+    <Property Name="CNIC" Type="nvarchar" MaxLength="30" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="30" />
+    <Property Name="DepartmentID" Type="int" />
+  </EntityType>
+  <EntityType Name="std_audit">
+    <Key>
+      <PropertyRef Name="au_id" />
+    </Key>
+    <Property Name="au_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="au_info" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentName" Type="varchar" MaxLength="20" />
+    <Property Name="FatherName" Type="varchar" MaxLength="20" />
+    <Property Name="CNIC" Type="nvarchar" MaxLength="30" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="30" />
+    <Property Name="DepartmentID" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="RePassword" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__Book__AuthorID__72C60C4A">
+    <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorID" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookIssue__BookI__07C12930">
+    <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+    <End Role="BookIssue" Type="Self.BookIssue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="BookID" />
+      </Principal>
+      <Dependent Role="BookIssue">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookIssue__Facul__09A971A2">
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+    <End Role="BookIssue" Type="Self.BookIssue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="FacultyID" />
+      </Principal>
+      <Dependent Role="BookIssue">
+        <PropertyRef Name="FacultyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookIssue__Stude__08B54D69">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="BookIssue" Type="Self.BookIssue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="BookIssue">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Faculty__Departm__37A5467C">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Faculty">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__Departm__3A81B327">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Library_Management_SystemModelStoreContainer">
+    <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BookIssue" EntityType="Self.BookIssue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="std_audit" EntityType="Self.std_audit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Book__AuthorID__72C60C4A" Association="Self.FK__Book__AuthorID__72C60C4A">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookIssue__BookI__07C12930" Association="Self.FK__BookIssue__BookI__07C12930">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="BookIssue" EntitySet="BookIssue" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookIssue__Facul__09A971A2" Association="Self.FK__BookIssue__Facul__09A971A2">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="BookIssue" EntitySet="BookIssue" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookIssue__Stude__08B54D69" Association="Self.FK__BookIssue__Stude__08B54D69">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="BookIssue" EntitySet="BookIssue" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Faculty__Departm__37A5467C" Association="Self.FK__Faculty__Departm__37A5467C">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Faculty" EntitySet="Faculty" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__Departm__3A81B327" Association="Self.FK__Student__Departm__3A81B327">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

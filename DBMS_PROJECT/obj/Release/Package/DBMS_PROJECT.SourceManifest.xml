@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="E:\5th Semester\DBMS\FINAL PROJECT - Copy (3)\DBMS_PROJECT\obj\Release\Package\PackageTmp" />
+  <setAcl path="E:\5th Semester\DBMS\FINAL PROJECT - Copy (3)\DBMS_PROJECT\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="E:\5th Semester\DBMS\FINAL PROJECT - Copy (3)\DBMS_PROJECT\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

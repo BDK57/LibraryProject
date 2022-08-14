@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Library_Management_SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Library_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Library_Management_SystemModel.Author" />
+    <EntitySet Name="Books" EntityType="Library_Management_SystemModel.Book" />
+    <EntitySet Name="BookIssues" EntityType="Library_Management_SystemModel.BookIssue" />
+    <EntitySet Name="Departments" EntityType="Library_Management_SystemModel.Department" />
+    <EntitySet Name="Faculties" EntityType="Library_Management_SystemModel.Faculty" />
+    <EntitySet Name="std_audit" EntityType="Library_Management_SystemModel.std_audit" />
+    <EntitySet Name="Students" EntityType="Library_Management_SystemModel.Student" />
+    <EntitySet Name="Users" EntityType="Library_Management_SystemModel.User" />
+    <AssociationSet Name="FK__Book__AuthorID__72C60C4A" Association="Library_Management_SystemModel.FK__Book__AuthorID__72C60C4A">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookIssue__BookI__07C12930" Association="Library_Management_SystemModel.FK__BookIssue__BookI__07C12930">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="BookIssue" EntitySet="BookIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookIssue__Facul__09A971A2" Association="Library_Management_SystemModel.FK__BookIssue__Facul__09A971A2">
+      <End Role="Faculty" EntitySet="Faculties" />
+      <End Role="BookIssue" EntitySet="BookIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookIssue__Stude__08B54D69" Association="Library_Management_SystemModel.FK__BookIssue__Stude__08B54D69">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="BookIssue" EntitySet="BookIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Faculty__Departm__37A5467C" Association="Library_Management_SystemModel.FK__Faculty__Departm__37A5467C">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Faculty" EntitySet="Faculties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__Departm__3A81B327" Association="Library_Management_SystemModel.FK__Student__Departm__3A81B327">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AuthorDOB" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Books" Relationship="Library_Management_SystemModel.FK__Book__AuthorID__72C60C4A" FromRole="Author" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookTitle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="BookPrice" Type="Int32" />
+    <Property Name="BookQuantity" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="AuthorID" Type="Int32" />
+    <NavigationProperty Name="Author" Relationship="Library_Management_SystemModel.FK__Book__AuthorID__72C60C4A" FromRole="Book" ToRole="Author" />
+    <NavigationProperty Name="BookIssues" Relationship="Library_Management_SystemModel.FK__BookIssue__BookI__07C12930" FromRole="Book" ToRole="BookIssue" />
+  </EntityType>
+  <EntityType Name="BookIssue">
+    <Key>
+      <PropertyRef Name="BookIssueID" />
+    </Key>
+    <Property Name="BookIssueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookID" Type="Int32" />
+    <Property Name="StudentID" Type="Int32" />
+    <Property Name="FacultyID" Type="Int32" />
+    <Property Name="BookAvailable" Type="Int32" />
+    <Property Name="Fine" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+    <Property Name="IssueDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Book" Relationship="Library_Management_SystemModel.FK__BookIssue__BookI__07C12930" FromRole="BookIssue" ToRole="Book" />
+    <NavigationProperty Name="Faculty" Relationship="Library_Management_SystemModel.FK__BookIssue__Facul__09A971A2" FromRole="BookIssue" ToRole="Faculty" />
+    <NavigationProperty Name="Student" Relationship="Library_Management_SystemModel.FK__BookIssue__Stude__08B54D69" FromRole="BookIssue" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Faculties" Relationship="Library_Management_SystemModel.FK__Faculty__Departm__37A5467C" FromRole="Department" ToRole="Faculty" />
+    <NavigationProperty Name="Students" Relationship="Library_Management_SystemModel.FK__Student__Departm__3A81B327" FromRole="Department" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Faculty">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+    </Key>
+    <Property Name="FacultyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FacultyName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CNIC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentID" Type="Int32" />
+    <NavigationProperty Name="BookIssues" Relationship="Library_Management_SystemModel.FK__BookIssue__Facul__09A971A2" FromRole="Faculty" ToRole="BookIssue" />
+    <NavigationProperty Name="Department" Relationship="Library_Management_SystemModel.FK__Faculty__Departm__37A5467C" FromRole="Faculty" ToRole="Department" />
+  </EntityType>
+  <EntityType Name="std_audit">
+    <Key>
+      <PropertyRef Name="au_id" />
+    </Key>
+    <Property Name="au_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="au_info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FatherName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CNIC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="DepartmentID" Type="Int32" />
+    <NavigationProperty Name="BookIssues" Relationship="Library_Management_SystemModel.FK__BookIssue__Stude__08B54D69" FromRole="Student" ToRole="BookIssue" />
+    <NavigationProperty Name="Department" Relationship="Library_Management_SystemModel.FK__Student__Departm__3A81B327" FromRole="Student" ToRole="Department" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="RePassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__Book__AuthorID__72C60C4A">
+    <End Type="Library_Management_SystemModel.Author" Role="Author" Multiplicity="0..1" />
+    <End Type="Library_Management_SystemModel.Book" Role="Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorID" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookIssue__BookI__07C12930">
+    <End Type="Library_Management_SystemModel.Book" Role="Book" Multiplicity="0..1" />
+    <End Type="Library_Management_SystemModel.BookIssue" Role="BookIssue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="BookID" />
+      </Principal>
+      <Dependent Role="BookIssue">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookIssue__Facul__09A971A2">
+    <End Type="Library_Management_SystemModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+    <End Type="Library_Management_SystemModel.BookIssue" Role="BookIssue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="FacultyID" />
+      </Principal>
+      <Dependent Role="BookIssue">
+        <PropertyRef Name="FacultyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookIssue__Stude__08B54D69">
+    <End Type="Library_Management_SystemModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="Library_Management_SystemModel.BookIssue" Role="BookIssue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="BookIssue">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Faculty__Departm__37A5467C">
+    <End Type="Library_Management_SystemModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="Library_Management_SystemModel.Faculty" Role="Faculty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Faculty">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__Departm__3A81B327">
+    <End Type="Library_Management_SystemModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="Library_Management_SystemModel.Student" Role="Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

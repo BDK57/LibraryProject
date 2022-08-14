@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f9c33a83cf8419ba6b7f80475b39084" Name="Diagram1">
+        <EntityTypeShape EntityType="Library_Management_SystemModel.Author" Width="1.5" PointX="0.75" PointY="9.375" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.Book" Width="1.5" PointX="3" PointY="9.25" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.BookIssue" Width="1.5" PointX="5.25" PointY="2.875" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.Department" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.Faculty" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.std_audit" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.Student" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="Library_Management_SystemModel.User" Width="1.5" PointX="7.75" PointY="3.75" />
+        <AssociationConnector Association="Library_Management_SystemModel.FK__Book__AuthorID__72C60C4A" />
+        <AssociationConnector Association="Library_Management_SystemModel.FK__BookIssue__BookI__07C12930" />
+        <AssociationConnector Association="Library_Management_SystemModel.FK__BookIssue__Facul__09A971A2" />
+        <AssociationConnector Association="Library_Management_SystemModel.FK__BookIssue__Stude__08B54D69" />
+        <AssociationConnector Association="Library_Management_SystemModel.FK__Faculty__Departm__37A5467C" />
+        <AssociationConnector Association="Library_Management_SystemModel.FK__Student__Departm__3A81B327" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
